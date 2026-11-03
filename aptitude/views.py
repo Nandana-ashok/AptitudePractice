@@ -136,3 +136,34 @@ class AptitudeSubmissionRetrieveUpdateDeleteView(APIView):
         return Response({
             "message": "Submission deleted successfully"
         })
+
+class EvaluateAptitudeSubmissionView(APIView):
+
+    def put(self, request, sid):
+        submission = get_object_or_404(
+            AptitudeSubmission,
+            id=sid
+        )
+
+        question = get_object_or_404(
+            AptitudeQuestion,
+            id=submission.question_id
+        )
+
+        is_correct = (
+            submission.selected_option == question.correct_option
+        )
+
+        points = question.marks if is_correct else 0
+
+        submission.is_correct = is_correct
+        submission.points = points
+        submission.remarks = request.data.get(
+            "remarks",
+            submission.remarks
+        )
+        submission.save()
+
+        serializer = AptitudeSubmissionSerializer(submission)
+
+        return Response(serializer.data)

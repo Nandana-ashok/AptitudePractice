@@ -23,5 +23,6 @@ urlpatterns = [
     path('aptitude/',views.AptitudeQuestionCreateListView.as_view()),
     path('aptitude/<int:pk>/',views.AptitudeRetrievalUpdateDeleteView.as_view()),
     path('submission/',views.AptitudeSubmissionCreateListView.as_view()),
-    path('submission/<int:id>/',views.AptitudeSubmissionRetrieveUpdateDeleteView.as_view())
+    path('submission/<int:id>/',views.AptitudeSubmissionRetrieveUpdateDeleteView.as_view()),
+    path('submissions/<int:sid>/evaluate/', views.EvaluateAptitudeSubmissionView.as_view()),
 ]

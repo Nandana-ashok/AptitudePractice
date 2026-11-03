@@ -85,3 +85,11 @@ Content-Type: application/json
 
 ###
 DELETE http://127.0.0.1:8000/submission/2/
+
+###
+PUT http://127.0.0.1:8000/submissions/1/evaluate/
+Content-Type: application/json
+
+{
+    "remarks": "Answer evaluated"
+}
